@@ -10,7 +10,7 @@ datasets=('shaders1k' \
 for DATASET in ${datasets[@]}
 do
     echo "Downloading $DATASET"
-    wget -O data/$DATASET.zip http://data.csail.mit.edu/shaders21k/zipped_data/$DATASET.zip
+    wget -O data/$DATASET.zip http://data.csail.mit.edu/synthetic_training/shaders21k/zipped_data/$DATASET.zip
     yes | unzip data/$DATASET.zip -d data/$DATASET
     rm data/$DATASET.zip
 done
