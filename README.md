@@ -8,7 +8,7 @@ This repo contains code and scripts to download datasets for the paper _Procedur
 </p>
 
 [[Project page](https://mbaradad.github.io/shaders21k)] 
-[[Paper](https://openreview.net/pdf?id=wJwHTgIoE0P)]
+[[Paper](https://arxiv.org/abs/2211.16412)]
 
 # Requirements
 For the main training logic, the requirements can be installed 
