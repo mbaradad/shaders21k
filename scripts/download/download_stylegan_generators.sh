@@ -1,15 +1,13 @@
 #!/bin/bash
-mkdir -p encoders
+mkdir -p generators
 
-datasets=('shaders1k' \
-          'shaders21k' \
-          'shaders21k_6mixup' \
-          'shaders21k_stylegan' \
-          'shaders21k_4mixup_live' \
-           )
+models=('shaders21k-256x256-gamma-5' \
+        'shaders21k-512x512-gamma-40' \
+        )
 
-for DATASET in ${datasets[@]}
+for MODEL in ${models[@]}
 do
-    echo "Downloading $DATASET"
-    wget -O encoders/$DATASET/checkpoint_0199.pth.tar http://data.csail.mit.edu/synthetic_training/shaders21k/models/encoders/$DATASET/checkpoint_0199.pth.tar
+    echo "Downloading StyleGAN model $MODEL"
+    mkdir -p generators/$MODEL
+wget -O generators/$MODEL/network-snapshot-025000.pkl http://data.csail.mit.edu/synthetic_training/shaders21k/models/generators/$MODEL/network-snapshot-025000.pkl
 done

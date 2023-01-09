@@ -1,7 +1,7 @@
 # Procedural Image Programs for Representation Learning
 
 This repo contains code and scripts to download datasets for the paper _Procedural Image Programs for Representation Learning_
- (NeurIPS 2022). On a future release, we will provide easier access to the shader codes, but for now we require contacting the authors for access. Rendered data and models are already available.
+ (NeurIPS 2022). On a future release, we will provide easier access to the shader codes, but for now we require contacting the authors for access. Rendered data and trained models are already available.
 
 <p align="center">
   <img width="100%" src="https://mbaradad.github.io/shaders21k/images/teaser.png">
