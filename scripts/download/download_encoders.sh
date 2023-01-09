@@ -11,5 +11,6 @@ datasets=('shaders1k' \
 for DATASET in ${datasets[@]}
 do
     echo "Downloading $DATASET"
+    mkdir -p encoders/$DATASET
     wget -O encoders/$DATASET/checkpoint_0199.pth.tar http://data.csail.mit.edu/synthetic_training/shaders21k/models/encoders/$DATASET/checkpoint_0199.pth.tar
 done
