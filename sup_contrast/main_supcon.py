@@ -4,11 +4,8 @@ import sys
 import os
 assert os.getcwd().split('/')[-1] == 'sup_contrast', "Sup contrast should be run from sup contrast directory and not from project root"
 sys.path.append('.')
-sys.path.append('..')
-sys.path.append('../..')
 
-from my_python_utils.common_utils import *
-
+from utils import *
 import os
 import sys
 import argparse
@@ -190,7 +187,7 @@ def set_loader(opt):
             assert opt.n_samples == len(train_dataset), "Subsampling only implemented for single_fragments experiment! And requested {} samples but dataset has {} samples!".format(opt.n_samples, len(train_dataset))
 
     else:
-        from dataset.on_the_fly_moderngl.on_the_fly_moderngl_fragment import ModernGLOnlineDataset, get_sample_mixer
+        from image_generation.shaders.on_the_fly_moderngl_shader import ModernGLOnlineDataset, get_sample_mixer
 
         if opt.infinite_samples:
             print("Training with infinite samples!")

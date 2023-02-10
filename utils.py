@@ -1,11 +1,11 @@
-import random
-
 import os
 import torch
 from tqdm import tqdm
 from p_tqdm import p_map
 import numpy as np
 import cv2
+import sys
+import random
 
 def listdir(folder, prepend_folder=False, extension=None, type=None):
   assert type in [None, 'file', 'folder'], "Type must be None, 'file' or 'folder'"
@@ -21,11 +21,11 @@ def listdir(folder, prepend_folder=False, extension=None, type=None):
 
 def checkpoint_can_be_loaded(checkpoint):
   try:
-    a = torch.load(checkpoint, map_location=torch.device('cpu'))
+    torch.load(checkpoint, map_location=torch.device('cpu'))
+    return True
   except Exception as e:
     print(e)
     return False
-  return True
 
 
 def read_text_file_lines(filename, stop_at=-1):
@@ -114,3 +114,55 @@ def cv2_imread(file, return_BGR=False, read_alpha=False):
     return np.concatenate((im[:3][::-1], im[3:4]))
   else:
     return im[::-1, :, :]
+
+
+def select_gpus(gpus_arg):
+  #so that default gpu is one of the selected, instead of 0
+  gpus_arg = str(gpus_arg)
+  if len(gpus_arg) > 0:
+    os.environ['CUDA_VISIBLE_DEVICES'] = gpus_arg
+    gpus = list(range(len(gpus_arg.split(','))))
+  else:
+    os.environ['CUDA_VISIBLE_DEVICES'] = ''
+    gpus = []
+  print('CUDA_VISIBLE_DEVICES={}'.format(os.environ['CUDA_VISIBLE_DEVICES']))
+
+  flag = 0
+  for i in range(len(gpus)):
+    for i1 in range(len(gpus)):
+      if i != i1:
+        if gpus[i] == gpus[i1]:
+          flag = 1
+  assert not flag, "Gpus repeated: {}".format(gpus)
+
+  return gpus
+
+
+def read_text_file_lines(filename, stop_at=-1):
+  lines = list()
+  with open(filename, 'r') as f:
+    for line in f:
+      if stop_at > 0 and len(lines) >= stop_at:
+        return lines
+      lines.append(line.replace('\n',''))
+  return lines
+
+def write_text_file_lines(lines, file):
+  assert type(lines) is list, "Lines should be a list of strings"
+  with open(file, 'w') as file_handler:
+    for item in lines:
+      file_handler.write("%s\n" % item)
+
+def write_text_file(text, filename):
+  with open(filename, "w") as file:
+    file.write(text)
+
+def read_text_file(filename):
+  text_file = open(filename, "r")
+  data = text_file.read()
+  text_file.close()
+  return data
+
+
+def float2str(float, prec=2):
+  return ("{0:." + str(prec) + "f}").format(float)

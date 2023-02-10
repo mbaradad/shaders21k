@@ -1,7 +1,7 @@
 # Procedural Image Programs for Representation Learning
 
-This repo contains code and scripts to download datasets for the paper _Procedural Image Programs for Representation Learning_
- (NeurIPS 2022). On a future release, we will provide easier access to the shader codes, but for now we require contacting the authors for access. Rendered data and trained models are already available.
+This repo contains code and datasets for the paper _Procedural Image Programs for Representation Learning_
+ (NeurIPS 2022). 
 
 <p align="center">
   <img width="100%" src="https://mbaradad.github.io/shaders21k/images/teaser.png">
@@ -17,16 +17,31 @@ For the main training logic, the requirements can be installed
 
 To render with the shaders with OpenGL and GPU, NVIDIA cards supporting CUDA should be able to render by default. 
 
-# Download data and models
-To download data and models, run the appropriate script under ```scripts```.
+# Download shader codes, data and models
+For the shader codes used in the paper, we provide a downloaded version from the original sources as they were publicily available during October 2021.
+```
+./scripts/download/download_shader_codes.sh
+```
+
+The license for the codes are the same as the original shaders, and can be accessed using the identifiers included in the previous under shader_codes/shader_info.
+
+
+To download data and models, run the appropriate script (X=datasets/encoders/stylegan_generators) as:
+```
+./scripts/download/download_$X.sh
+```
+IMPORTANT: All datasets we provide are unsorted (as used for contrastive methods). The folder structure does not reflect classes/shader ids, and it is only for convenience 
+(e.g. faster naviagation of the folder structure on network disks). 
+To train with shader id as class (e.g. for training classification with cross entropy) the folder structure cannot be used, and you will need to use the rendering funcitonalities we provide
+to generate a dataset with N images per class. 
 
 Additional datasets used in our previous paper [Learning to See by Looking at Noise](https://github.com/mbaradad/learning_with_noise)
-can be similarly downloaded with the scripts from  the repo. 
+can be similarly downloaded with the scripts from that repository.
 
 # Data generation
 
 The main rendering functionality for shaders is under ```image_generation/shaders/renderer_moderngl.py```. 
-To either render the samples or to train live using moco, the shader codes are required. Contact the authors for access to the original codes. 
+This script can be used to render data (see the __main__ in the script).
 
 To generate from StyleGAN, first download the GAN models (or train them yourself with the datasets available), and use
 ```image_generation/stylegan2/generate_large_scale_dataset_stylegan2_mixup_6.sh```.
@@ -40,11 +55,5 @@ with minor modifications.
 
 ### Live training
 To generate data while training, see moco/main_train.py, with parameters ```--dataset-type shaders/shader_list```. Access to the shaders and the shader_list must be requested to the authors for now. 
-
-
-## Access to the shader codes
-The shader codes can be downloaded using the id's under shader_ids/. 
-Additionally, we provide them pre-packed by completing the following form:
-
 
 

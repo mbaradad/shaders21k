@@ -3,10 +3,8 @@ import sys
 
 import os
 assert 'sup_contrast' in os.getcwd().split('/')[-1], "Sup contrast should be run from sup contrast directory and not from project root"
-sys.path.append('.')
-sys.path.append('../..')
 
-from my_python_utils.common_utils import *
+from utils import *
 
 import sys
 import argparse

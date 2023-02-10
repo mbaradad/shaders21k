@@ -1,11 +1,13 @@
 from utils import *
 
-from shaders21k_private.image_generation.shaders.programs.shadertoy_program import *
-from shaders21k_private.image_generation.shaders.programs.twigl_program import *
+from image_generation.shaders.programs.shadertoy_program import *
+from image_generation.shaders.programs.twigl_program import *
 
 import multiprocessing as mp
 import os
 from tqdm import tqdm
+
+import random
 
 from PIL import Image
 
@@ -219,6 +221,10 @@ def get_program_from_shader_path(f):
     raise Exception("Could not identify file as Shadertoy or Twigl: " + f)
   return program
 
+def get_renderer_from_shader_path(f, renderer_kwargs=dict()):
+  program = get_program_from_shader_path(f)
+  return RendererModernGL([program], **renderer_kwargs)
+
 def get_renderer_from_fragments_file(fragments_files, precompile_in_parallel, renderer_kwargs=dict(), subsample_n=-1):
   if not type(fragments_files) is list:
     fragments_files = [fragments_files]
@@ -245,22 +251,12 @@ def get_renderer_from_fragments_file(fragments_files, precompile_in_parallel, re
 
   return renderer
 
-
 if __name__ == '__main__':
-  shadertoy_only = False
-  performance_to_shader = 'shader_codes/shaders_by_performance'
-  shader_by_perf = [a.split(': ')[-1] for a in read_text_file_lines(performance_to_shader)]
-  if shadertoy_only:
-    shader_by_perf = [a for a in shader_by_perf if len(a) < 24]
+  fragments_file = 'shader_codes/shaders_list'
+  all_code_paths = read_text_file_lines(fragments_file)
+  #renderer = get_renderer_from_fragments_file(fragments_file, precompile_in_parallel=False)
+  renderer = get_renderer_from_shader_path(random.choice(all_code_paths))
+  img, _ = renderer.render()
 
-  all_shaders = read_text_file_lines('shader_codes/shaders_list')
-  for i in tqdm(range(100)):
-    top_perf = [k.split(': ')[-1] for k in all_shaders if shader_by_perf[-i] in k][0]
-
-    program = get_program_from_shader_path(top_perf)
-
-    renderer = RendererModernGL([program])
-
-    images, ids = renderer.render()
-    from my_python_utils.common_utils import *
-    gif_path = imshow(images, gif=True, title=str(i) + '_' + top_perf, env='dumped_shaders')
+  os.makedirs('outputs', exist_ok=True)
+  cv2_imwrite(img[0], 'outputs/example_render.png')
