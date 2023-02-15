@@ -6,6 +6,10 @@ import numpy as np
 import cv2
 import sys
 import random
+import argparse
+
+from PIL import Image
+
 
 def listdir(folder, prepend_folder=False, extension=None, type=None):
   assert type in [None, 'file', 'folder'], "Type must be None, 'file' or 'folder'"
@@ -166,3 +170,28 @@ def read_text_file(filename):
 
 def float2str(float, prec=2):
   return ("{0:." + str(prec) + "f}").format(float)
+
+def str2bool(v):
+  assert type(v) is str
+  if v.lower() in ('yes', 'true', 't', 'y', '1'):
+    return True
+  elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+    return False
+  else:
+    raise argparse.ArgumentTypeError('Boolean (yes, true, t, y or 1, lower or upper case) string expected.')
+
+
+def tonumpy(tensor):
+  if type(tensor) is Image:
+    return np.array(tensor).transpose((2,0,1))
+  if type(tensor) is list:
+    return np.array(tensor)
+  if type(tensor) is np.ndarray:
+    return tensor
+  if tensor.requires_grad:
+    tensor = tensor.detach()
+  if type(tensor) is torch.autograd.Variable:
+    tensor = tensor.data
+  if tensor.is_cuda:
+    tensor = tensor.cpu()
+  return tensor.detach().numpy()

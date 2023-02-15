@@ -1,4 +1,4 @@
-from shaders21k_private.image_generation.shaders.glsl_utils import *
+from image_generation.shaders.glsl_utils import *
 import string
 
 from utils import *
