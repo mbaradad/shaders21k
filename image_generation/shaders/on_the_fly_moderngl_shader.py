@@ -69,22 +69,22 @@ def get_moderngl_worker_class(cls):
         if not np.allclose(image_to_compare, generated_image, atol=1e-1):
           print("ERROR IN THE GENERATOR!! Some samples are different when using the same parameters. This is probably an issue with multithreading and/or pytorch + OpenGL.")
           print("Bad program name: " + self.programs[program_i].name)
-          print("After having generated {} samples".format(self.frames_generated))
+          print("After having generated {} samples".format(self.n_frames_generated))
           raise Exception("Error with on on_the_fly_moderngl_shader.py")
 
 
     # same logic as parent class but with sleep when queue is full
     def __render__(self):
-      self.frames_generated = 0
+      self.n_frames_generated = 0
 
       # Draw Function
       pil_images = []
       program_is = []
       while True:
-        if self.frames_generated % self.consistency_check_its == 0:
+        if self.n_frames_generated % self.consistency_check_its == 0:
           self.check_consistency()
 
-        if self.n_images_to_generate != -1 and self.frames_generated >= self.n_images_to_generate or self.results_queue.full():
+        if self.n_images_to_generate != -1 and self.n_frames_generated >= self.n_images_to_generate or self.results_queue.full():
           time.sleep(self.time_to_sleep_if_full)
           # self.results_queue.qsize()
           continue
@@ -105,7 +105,7 @@ def get_moderngl_worker_class(cls):
           pil_images = []
           program_is = []
 
-        self.frames_generated += 1
+        self.n_frames_generated += 1
   return RendererWorker
 
 
