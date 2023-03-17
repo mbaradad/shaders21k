@@ -5,6 +5,7 @@ from image_generation.shaders.programs.twigl_program import *
 
 import multiprocessing as mp
 import os
+import platform
 from tqdm import tqdm
 
 import random
@@ -37,7 +38,9 @@ class RendererModernGL():
 
     self.resolution = resolution
     try:
-      self.ctx = moderngl.create_context(standalone=True, backend='egl', require=OPENGL_REQUIRED_VERSION, device_index=gpu)
+      # 'egl' is only available on Linux. otherwise, use the default backend instead
+      backend = dict(backend="egl") if platform.system() == "Linux" else dict()
+      self.ctx = moderngl.create_context(standalone=True, **backend, require=OPENGL_REQUIRED_VERSION, device_index=gpu)
       self.fbo = self.ctx.simple_framebuffer((self.resolution, self.resolution), components=4)
       self.fbo.use()
 
@@ -126,7 +129,7 @@ class RendererModernGL():
     elif type(self.temporal_sampling_mode) is list:
       timestep = self.temporal_sampling_mode[n_frame]
     else:
-      raise Exception("not impolemented")
+      raise Exception("not implemented")
 
     timestep_str = self.programs[program_i].get_timestep_uniform_str()
     self.update_uniform(program_i, timestep_str, timestep)
