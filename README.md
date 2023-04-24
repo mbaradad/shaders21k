@@ -67,14 +67,13 @@ To generate data while training, see moco/main_train.py, with parameters ```--da
 
 # Citation
 ```
-@inproceedings{
- baradad2022procedural,
- title={Procedural Image Programs for Representation Learning},
- author={Manel Baradad and Chun-Fu Chen and Jonas Wulff and Tongzhou Wang and Rogerio Feris and Antonio Torralba and Phillip Isola},
- booktitle={Advances in Neural Information Processing Systems},
- editor={Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho},
- year={2022},
- url={https://openreview.net/forum?id=wJwHTgIoE0P}
+@inproceedings{baradad2022procedural,
+        title={Procedural Image Programs for Representation Learning},
+        author={Manel Baradad and Chun-Fu Chen and Jonas Wulff and Tongzhou Wang and Rogerio Feris and Antonio Torralba and Phillip Isola},
+        booktitle={Advances in Neural Information Processing Systems},
+        editor={Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho},
+        year={2022},
+        url={https://openreview.net/forum?id=wJwHTgIoE0P}
 }
 ```
 
