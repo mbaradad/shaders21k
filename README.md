@@ -23,7 +23,7 @@ For the shader codes used in the paper, we provide a downloaded version from the
 ./scripts/download/download_shader_codes.sh
 ```
 
-The license for the codes are the same as the original shaders, and can be accessed using the identifiers included in the previous under shader_codes/shader_info.
+The license for the codes are the same as the original shaders, and can be accessed using the identifiers included in the previous download under shader_codes/shader_info.
 
 
 To download data and models, run the appropriate script (X=datasets/encoders/stylegan_generators) as:
