@@ -62,8 +62,7 @@ and [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch),
 with minor modifications.
 
 ### Live training
-To generate data while training, see moco/main_train.py, with parameters ```--dataset-type shaders/shader_list```. Access to the shaders and the shader_list must be requested to the authors for now. 
-
+To generate data while training, see moco/main_train.py, with parameters ```--dataset-type shaders/shader_list```. Shader codes and datasets can be downloaded using the scripts under ```./download/download_shader_codes.sh``` and ```./download/download_datasets.sh```
 
 # Citation
 ```
