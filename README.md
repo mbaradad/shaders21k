@@ -43,16 +43,25 @@ can be similarly downloaded with the scripts from that repository.
 The main rendering functionality for shaders is under ```image_generation/shaders/renderer_moderngl.py```. 
 This script can be used to render data (see the __main__ in the script).
 
-If you want to generate data for a single shader, you can use the utility ```image_generation/shaders/generate_data_single_shader.py```, for example as:
+If you want to generate data for a single shader (as used in the paper, which generates samples at random), you can use the utility ```image_generation/shaders/generate_data_single_shader.py```, for example as:
 
 ```
 python image_generation/shaders/generate_data_single_shader.py --shader-file shader_codes/shadertoy/W/Wd2XWy.fragment --n-samples 105000 --resolution 256 --output-path shader_images/Wd2XWy
 ```
 
+Additionally, we provide an utility to generate a single video for a given shader, under```image_generation/shaders/generate_video_single_shader.py```, which can be analogously used as:
+
+```
+python image_generation/shaders/generate_video_single_shader.py --shader-file shader_codes/shadertoy/W/Wd2XWy.fragment --duration 30 --output-path Wd2XWy.mp4 --fps 24 --resolution 512
+```
 
 
-To generate from StyleGAN, first download the GAN models (or train them yourself with the datasets available), and use
-```image_generation/stylegan2/generate_large_scale_dataset_stylegan2_mixup_6.sh```.
+To generate from StyleGAN, first download the GAN models (or train them yourself with the datasets available), and use:
+
+```
+image_generation/stylegan2/generate_large_scale_dataset_stylegan2_mixup_6.sh
+```
+
 
 # Training
 The main training scripts borrow most of their logic from 
