@@ -3,10 +3,8 @@ from utils import *
 from image_generation.shaders.glsl_utils import *
 from image_generation.shaders.renderer_moderngl import RendererModernGL, get_program_from_shader_path
 
-def generate_video_single_shader(shader_path, output_path, duration, resolution, fps, gpu):
-  assert os.path.exists(shader_file), "Fragment path {} does not exist!"
-
-  os.makedirs(output_path, exist_ok=True)
+def generate_video_single_shader(shader_path, output_file, duration, resolution, fps, gpu):
+  assert os.path.exists(shader_path), "Fragment path {} does not exist!"
 
   program = get_program_from_shader_path(shader_path)
   total_samples = duration * fps
@@ -18,7 +16,13 @@ def generate_video_single_shader(shader_path, output_path, duration, resolution,
                               gpu=gpu,
                               max_failed_samples=0)
 
-  imgs = renderer.render()
+  imgs, _ = renderer.render()
+  # dump images into output_file, and assert that this is ends with .mp4
+  assert output_file.endswith('.mp4'), "Output file must end with .mp4"
+  video_writer = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'mp4v'), fps, (resolution, resolution))
+  for img in imgs:
+    video_writer.write(tonumpy(img).transpose((1,2,0)))
+  video_writer.release()
 
 
 
