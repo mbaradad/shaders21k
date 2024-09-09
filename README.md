@@ -39,6 +39,8 @@ Additional datasets used in our previous paper [Learning to See by Looking at No
 can be similarly downloaded with the scripts from that repository.
 
 # Data generation
+The shader generation has been tested with TitanRTX with CUDA 12.4 and drivers 550.90.07. Older drivers and CUDA should work, but issues have been found with the current implementation with 3090.
+
 
 The main rendering functionality for shaders is under ```image_generation/shaders/renderer_moderngl.py```. 
 This script can be used to render data (see the __main__ in the script).
