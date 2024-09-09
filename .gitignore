@@ -1,3 +1,5 @@
 outputs
 .vscode
 __pycache__
+.DS_store
+videos
