@@ -1,3 +1,6 @@
+import sys
+sys.path.append('.')
+
 from utils import *
 
 from image_generation.shaders.glsl_utils import *
