@@ -17,15 +17,7 @@ For the main training logic, the requirements can be installed
 
 To render with the shaders with OpenGL and GPU, NVIDIA cards supporting CUDA should be able to render by default. 
 
-# Download shader codes, data and models
-For the shader codes used in the paper, we provide a downloaded version from the original sources as they were publicily available during October 2021.
-```
-./scripts/download/download_shader_codes.sh
-```
-
-The license for the codes are the same as the original shaders, and can be accessed using the identifiers included in the previous download under shader_codes/shader_info.
-
-
+# Download data and models
 To download data and models, run the appropriate script (X=datasets/encoders/stylegan_generators) as:
 ```
 ./scripts/download/download_$X.sh
